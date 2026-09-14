@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            min-height: 100vh;
+
+            background: url("/img/LoginBackground.jpg")
+                        center / cover
+                        no-repeat;
+
+            font-family: Arial, sans-serif;
+
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .login-box {
+            width: 65%;
+            max-width: 750px;
+            min-height: 420px;
+
+            padding: 10px 70px 45px;
+
+            background: rgba(80, 100, 95, 0.55);
+
+            border-radius: 25px;
+
+            backdrop-filter: blur(2px);
+            -webkit-backdrop-filter: blur(2px);
+        }
+
+        h1 {
+            text-align: center;
+            margin: 0 0 45px;
+
+            font-size: 30px;
+            font-weight: 500;
+            color: black;
+        }
+
+        .form-group {
+            margin-bottom: 50px;
+        }
+
+        label {
+            display: block;
+
+            font-size: 25px;
+            color: black;
+
+            margin-bottom: 10px;
+        }
+
+        input {
+            width: 100%;
+            height: 53px;
+
+            border: none;
+            outline: none;
+
+            background: #eeeeee;
+
+            padding: 10px 15px;
+
+            font-size: 18px;
+        }
+
+        input:focus {
+            outline: 2px solid rgba(255, 255, 255, 0.7);
+        }
+
+        .links {
+            display: flex;
+            justify-content: space-between;
+
+            margin-top: -20px;
+        }
+
+        .links a {
+            color: white;
+            text-decoration: none;
+
+            font-size: 14px;
+        }
+
+        .links a:hover {
+            text-decoration: underline;
+        }
+
+        #submit {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 30px;
+            ;
+        }
+
+        #submit button {
+            padding: 12px 35px;
+            font-size: 18px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            background-color: rgba(24, 176, 24, 0.292);
+            /* color: crimson;   */
+        }
+
+
+    </style>
+</head>
+
+<body>
+
+    <div class="login-box">
+
+        <h1>LOGIN</h1>
+
+        <form id="loginForm">
+
+            <div class="form-group">    
+                <label for="userid">UserID:</label>
+                <input type="text" id="userid" name="userid">
+            </div>
+
+            <div class="form-group">
+                <label for="password">Password:</label>
+                <input type="password" id="password" name="password">
+            </div>
+
+            <div class="form-group" id="submit">
+                <button type="submit">LETS GO</button>
+                <label for="submit"></label>
+            </div>
+
+            <div class="links">
+                <a href="#">Forgot Password</a>
+                <a href="register.html">Register Here</a>
+            </div>
+
+            
+
+        </form>
+
+    </div>
+
+    <script>
+        // Talks to the Flask backend (MySQL Profiles table) to check the
+        // username and password, then redirects to the dashboard on success.
+        document.getElementById('loginForm').addEventListener('submit', async function (e) {
+            e.preventDefault();
+
+            const username = document.getElementById('userid').value.trim();
+            const password = document.getElementById('password').value;
+
+            try {
+                const response = await fetch('/api/login', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ username, password }),
+                });
+
+                const data = await response.json();
+
+                if (!response.ok) {
+                    alert(data.error || 'Login failed.');
+                    return;
+                }
+
+                window.location.href = 'dashboard.html';
+            } catch (err) {
+                alert('Could not reach the server. Please try again.');
+            }
+        });
+    </script>
+
+</body>
+</html>
