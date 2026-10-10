@@ -47,5 +47,5 @@ A lightweight web dashboard for tracking tree plantations and maintenance record
 ### 1. Clone / download
 
 ```bash
-git clone <your-repo-url>
+git clone https://github.com/Vansh-py/treeManagementSystem.git
 cd forest-dashboard
