@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Forest Dashboard</title>
+<link rel="stylesheet" href="/css/style.css" />
+</head>
+<body>
+
+<!-- ============ AUTH SCREENS ============ -->
+
+<section class="screen auth-screen" id="screen-login">
+  <div class="auth-card">
+    <div class="auth-brand">
+      <div class="brand-icon">🌲</div>
+      <h1>Welcome back</h1>
+      <p class="auth-sub">Log in to your forest dashboard</p>
+    </div>
+
+    <form id="loginForm">
+      <div class="form-group">
+        <label for="loginUserId">User ID</label>
+        <input type="text" id="loginUserId" name="userid" autocomplete="username" />
+      </div>
+      <div class="form-group">
+        <label for="loginPassword">Password</label>
+        <input type="password" id="loginPassword" name="password" autocomplete="current-password" />
+      </div>
+      <div class="submit-row">
+        <button type="submit" class="btn-primary">Sign in</button>
+      </div>
+      <div class="auth-links">
+        <a href="#register">Create an account</a>
+      </div>
+    </form>
+  </div>
+</section>
+
+<section class="screen auth-screen" id="screen-register">
+  <div class="auth-card">
+    <div class="auth-brand">
+      <div class="brand-icon">🌱</div>
+      <h1>Join the grove</h1>
+      <p class="auth-sub">Start tracking your trees today</p>
+    </div>
+
+    <form id="registerForm">
+      <div class="form-group">
+        <label for="regUsername">Username</label>
+        <input type="text" id="regUsername" name="name" autocomplete="username" />
+      </div>
+      <div class="form-group">
+        <label for="regEmail">Email</label>
+        <input type="email" id="regEmail" name="email" autocomplete="email" />
+      </div>
+      <div class="form-group">
+        <label for="regPassword">Password</label>
+        <input type="password" id="regPassword" name="password" autocomplete="new-password" />
+      </div>
+      <div class="submit-row">
+        <button type="submit" class="btn-primary">Create account</button>
+      </div>
+      <div class="auth-links">
+        <a href="#login">Already have an account? Sign in</a>
+      </div>
+    </form>
+  </div>
+</section>
+
+<!-- ============ DASHBOARD ============ -->
+
+<section class="screen dashboard-screen" id="screen-dashboard">
+  <div class="dashboard">
+
+    <aside class="sidebar">
+      <div class="profile">
+        <div class="avatar" id="avatarInitials">?</div>
+        <p class="username" id="sidebarUsername">username</p>
+        <span class="admin-badge" id="adminBadge" style="display:none;">ADMIN</span>
+      </div>
+
+      <nav id="nav">
+        <button class="nav-btn active" data-view="dashboard">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="9" rx="1"/><rect x="14" y="3" width="7" height="5" rx="1"/><rect x="14" y="12" width="7" height="9" rx="1"/><rect x="3" y="16" width="7" height="5" rx="1"/></svg>
+          <span>Dashboard</span>
+        </button>
+        <button class="nav-btn" data-view="tree-detail">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22v-7"/><path d="M9 9a3 3 0 1 1 6 0c0 2-3 3-3 3s-3-1-3-3Z"/><path d="M6 13a4 4 0 1 1 8 0"/><path d="M4 17a5 5 0 1 1 16 0"/></svg>
+          <span>Tree detail</span>
+        </button>
+        <button class="nav-btn" data-view="add-tree">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 8v8M8 12h8"/></svg>
+          <span>Add new tree</span>
+        </button>
+        <button class="nav-btn" data-view="maintenance">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14.7 6.3a4 4 0 1 1-5.4 5.4L3 18v3h3l6.3-6.3a4 4 0 1 1 5.4-5.4Z"/></svg>
+          <span>Maintenance</span>
+        </button>
+        <button class="nav-btn" data-view="profile">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4 4-6 8-6s8 2 8 6"/></svg>
+          <span>My profile</span>
+        </button>
+        <button class="nav-btn admin-nav" data-view="admin" id="adminNavBtn" style="display:none;">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2 4 6v6c0 5 3.5 9 8 10 4.5-1 8-5 8-10V6l-8-4Z"/></svg>
+          <span>Admin panel</span>
+        </button>
+      </nav>
+
+      <div class="sidebar-footer">
+        <button class="icon-btn" id="themeToggle" title="Toggle theme">
+          <span class="theme-icon-light">☀️</span>
+          <span class="theme-icon-dark">🌙</span>
+          <span class="theme-label">Theme</span>
+        </button>
+        <button class="icon-btn logout-btn" id="logoutBtn">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><path d="M16 17l5-5-5-5"/><path d="M21 12H9"/></svg>
+          <span>Logout</span>
+        </button>
+      </div>
+    </aside>
+
+    <main class="main">
+
+      <!-- Dashboard -->
+      <section class="view active" id="view-dashboard">
+        <div class="view-header">
+          <h2>Dashboard</h2>
+          <div class="search-box">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+            <input type="text" id="searchInput" placeholder="Search by tree ID" />
+          </div>
+        </div>
+
+        <div class="stats-row">
+          <div class="stat-card">
+            <p class="stat-label">Trees planted this month</p>
+            <p class="stat-value" id="statMonth">—</p>
+          </div>
+          <div class="stat-card">
+            <p class="stat-label">Trees planted this year</p>
+            <p class="stat-value" id="statYear">—</p>
+          </div>
+        </div>
+
+        <div class="charts-row">
+          <div class="chart-card">
+            <p class="chart-title">Tree plantation per month</p>
+            <div class="chart-box" id="barChart"></div>
+          </div>
+          <div class="chart-card">
+            <p class="chart-title">New users per month</p>
+            <div class="chart-box" id="lineChart"></div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Tree detail -->
+      <section class="view" id="view-tree-detail">
+        <div class="tree-search-wrap" id="treeSearchState">
+          <div class="tree-search-box">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+            <input type="text" id="treeIdInput" placeholder="Enter a tree ID and press Enter" />
+          </div>
+        </div>
+
+        <div class="tree-detail-wrap" id="treeResultState" style="display:none;">
+          <div class="tree-card">
+            <div class="tree-card-header">
+              <h2 id="treeCardTitle">TREE ID: —</h2>
+              <button class="btn-ghost small" id="backToSearchBtn">← New search</button>
+            </div>
+            <div class="tree-fields">
+              <div class="tree-field"><span class="k">Species</span><span class="value" id="fieldName">—</span></div>
+              <div class="tree-field"><span class="k">Scientific name</span><span class="value" id="fieldScientific">—</span></div>
+              <div class="tree-field"><span class="k">Owner</span><span class="value" id="fieldOwner">—</span></div>
+              <div class="tree-field"><span class="k">Location</span><span class="value" id="fieldLocation">—</span></div>
+              <div class="tree-field"><span class="k">Planted on</span><span class="value" id="fieldPlanted">—</span></div>
+              <div class="tree-field"><span class="k">Height</span><span class="value" id="fieldHeight">—</span></div>
+              <div class="tree-field"><span class="k">Health</span><span class="value" id="fieldHealth">—</span></div>
+              <div class="tree-field"><span class="k">Watering</span><span class="value" id="fieldWatering">—</span></div>
+              <div class="tree-field"><span class="k">Last checked</span><span class="value" id="fieldChecked">—</span></div>
+              <div class="tree-field"><span class="k">Status</span><span class="value" id="fieldStatus">—</span></div>
+            </div>
+          </div>
+          <div class="tree-actions">
+            <button class="btn-secondary" id="historyBtn">View maintenance history</button>
+            <button class="btn-danger" id="deleteTreeBtn">Delete this tree</button>
+          </div>
+          <div class="history-panel" id="historyPanel" style="display:none;"></div>
+        </div>
+      </section>
+
+      <!-- Add tree -->
+      <section class="view" id="view-add-tree">
+        <div class="view-header"><h2>Add new tree</h2></div>
+        <form class="stack-form" id="addTreeForm">
+          <div class="form-row">
+            <label class="form-label" for="inputSpecies">Species</label>
+            <input class="form-input" type="text" id="inputSpecies" name="species" placeholder="e.g. Neem" />
+          </div>
+          <div class="form-row">
+            <label class="form-label" for="inputHeight">Height</label>
+            <input class="form-input" type="text" id="inputHeight" name="height" placeholder="e.g. 2.5 m" />
+          </div>
+          <div class="form-row">
+            <label class="form-label" for="inputPlantationDate">Plantation date</label>
+            <input class="form-input" type="date" id="inputPlantationDate" name="plantationDate" />
+          </div>
+          <div class="form-row textarea-row">
+            <label class="form-label" for="inputLocation">Location</label>
+            <textarea class="form-textarea" id="inputLocation" name="location" rows="3" placeholder="Where is this tree planted?"></textarea>
+          </div>
+          <div class="form-submit-row">
+            <button type="submit" class="btn-primary">Save tree</button>
+          </div>
+        </form>
+      </section>
+
+      <!-- Maintenance -->
+      <section class="view" id="view-maintenance">
+        <div class="view-header"><h2>Log maintenance</h2></div>
+        <form class="stack-form" id="maintenanceForm">
+          <div class="form-row">
+            <label class="form-label" for="maintTreeId">Tree ID</label>
+            <input class="form-input" type="text" id="maintTreeId" name="treeId" />
+          </div>
+          <div class="form-row">
+            <label class="form-label" for="maintHeight">Current height</label>
+            <input class="form-input" type="text" id="maintHeight" name="currentHeight" placeholder="e.g. 2.8 m" />
+          </div>
+          <div class="form-row">
+            <label class="form-label" for="maintDate">Date</label>
+            <input class="form-input" type="date" id="maintDate" name="maintenanceDate" />
+          </div>
+          <div class="form-row">
+            <label class="form-label" for="maintTime">Time</label>
+            <input class="form-input" type="time" id="maintTime" name="maintenanceTime" />
+          </div>
+          <div class="form-row">
+            <label class="form-label" for="maintCondition">Condition</label>
+            <select class="form-select" id="maintCondition" name="condition">
+              <option value="" selected disabled hidden>Choose condition</option>
+              <option value="healthy">Healthy</option>
+              <option value="growing">Growing</option>
+              <option value="needs-attention">Needs attention</option>
+              <option value="damaged">Damaged</option>
+              <option value="dead">Dead</option>
+            </select>
+          </div>
+          <div class="form-submit-row">
+            <button type="submit" class="btn-primary">Save record</button>
+          </div>
+        </form>
+      </section>
+
+      <!-- Profile -->
+      <section class="view" id="view-profile">
+        <div class="view-header"><h2>My profile</h2></div>
+
+        <div class="profile-grid">
+          <div class="profile-card">
+            <div class="profile-avatar-lg" id="profileAvatar">?</div>
+            <h3 id="profileUsername">—</h3>
+            <p class="profile-role" id="profileRole">—</p>
+            <p class="profile-meta" id="profileCreated">Member since —</p>
+
+            <div class="profile-stats">
+              <div class="mini-stat">
+                <p class="mini-value" id="profileTreeCount">0</p>
+                <p class="mini-label">Trees</p>
+              </div>
+              <div class="mini-stat">
+                <p class="mini-value" id="profileMaintCount">0</p>
+                <p class="mini-label">Maintenance logs</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="profile-forms">
+            <form class="panel" id="emailForm">
+              <h4>Email address</h4>
+              <div class="form-row single">
+                <input class="form-input" type="email" id="profileEmail" placeholder="you@example.com" />
+              </div>
+              <div class="form-submit-row right">
+                <button type="submit" class="btn-primary small">Update email</button>
+              </div>
+            </form>
+
+            <form class="panel" id="passwordForm">
+              <h4>Change password</h4>
+              <div class="form-row single">
+                <input class="form-input" type="password" id="oldPassword" placeholder="Current password" autocomplete="current-password" />
+              </div>
+              <div class="form-row single">
+                <input class="form-input" type="password" id="newPassword" placeholder="New password" autocomplete="new-password" />
+              </div>
+              <div class="form-submit-row right">
+                <button type="submit" class="btn-primary small">Change password</button>
+              </div>
+            </form>
+
+            <div class="panel danger-panel">
+              <h4>Danger zone</h4>
+              <p class="muted">Deleting your account removes all your trees and maintenance records permanently.</p>
+              <button class="btn-danger" id="deleteAccountBtn">Delete my account</button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Admin -->
+      <section class="view" id="view-admin">
+        <div class="view-header"><h2>Admin panel</h2></div>
+
+        <div class="admin-tabs">
+          <button class="tab-btn active" data-tab="users">Users</button>
+          <button class="tab-btn" data-tab="trees">Trees</button>
+          <button class="tab-btn" data-tab="maintenance">Maintenance</button>
+        </div>
+
+        <div class="admin-tab-panel active" id="tab-users">
+          <div class="table-wrap"><table class="data-table" id="adminUsersTable"></table></div>
+        </div>
+        <div class="admin-tab-panel" id="tab-trees">
+          <div class="table-wrap"><table class="data-table" id="adminTreesTable"></table></div>
+        </div>
+        <div class="admin-tab-panel" id="tab-maintenance">
+          <div class="table-wrap"><table class="data-table" id="adminMaintTable"></table></div>
+        </div>
+      </section>
+
+    </main>
+  </div>
+</section>
+
+<!-- Toast container -->
+<div class="toast-container" id="toastContainer"></div>
+
+<!-- Modal -->
+<div class="modal-backdrop" id="modalBackdrop" style="display:none;">
+  <div class="modal">
+    <h3 id="modalTitle">Are you sure?</h3>
+    <p id="modalMessage">This action cannot be undone.</p>
+    <div class="modal-actions">
+      <button class="btn-secondary" id="modalCancel">Cancel</button>
+      <button class="btn-danger" id="modalConfirm">Confirm</button>
+    </div>
+  </div>
+</div>
+
+<script src="/js/script.js"></script>
+</body>
+</html>
